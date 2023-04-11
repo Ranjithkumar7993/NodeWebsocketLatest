@@ -1,9 +1,14 @@
-const http = require('http')
+const https = require('https');
+const fs = require('fs');
 const express = require('express')
 const WebSocket = require('ws')
 
 const app = express();
-const server = http.createServer(app)
+const server = new https.createServer({
+  cert: fs.readFileSync('/etc/ssl/certs/mobicipfalcon_com.crt'),
+  key: fs.readFileSync('/etc/ssl/private/mobicipfalcon_com.key')
+});
+
 
 server.listen(1337, function () {
     console.log('Server running')
